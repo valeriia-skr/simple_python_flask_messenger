@@ -8,6 +8,7 @@ import os
 app = Flask(__name__)
 DB_FILE_NAME = "db.json"
 
+
 # json.dump - write to file in json format
 # json.load - read from json file
 
@@ -74,6 +75,46 @@ def send_message():
     return "ok"
 
 
+@app.route("/status")
+def get_status():
+    msgs = load_messages()
+    length_all_msgs = len(msgs)
+    authors = []
+    for msg in msgs:
+        name = msg["author"]
+        if name not in authors:
+            authors.append(name)
+    return {
+        "msg_count": length_all_msgs,
+        "authors_count": len(authors)
+    }
+
+
 if __name__ == "__main__":
     # configurate app running's parameters
     app.run(host='0.0.0.0', port=8080)
+
+# some notes for hosting:
+# ssh-keygen -t rsa - generate ssh key
+
+# ssh -i <path_to_ssh_key> root@<ip_addr> - enter the server
+
+# adduser <username> - create user
+
+# usermod -aG sudo <username> - give administrator right to the user
+
+# su <username> - change user
+
+# scp -r <path_from> user@<id_addr>:<path_to> - copy to the server (-r  --> recursively)
+
+# sudo apt-get update -update the system
+
+# sudo apt install python3-pip - setup pip
+
+# sudo apt install screen --> utilite for running the app at the background
+
+# screen -d -m python3 main.py --> run the script at the background
+
+# screen -ls --> all the processes' list
+
+# screen -x -s  -- > process id
