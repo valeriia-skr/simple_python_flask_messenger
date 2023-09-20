@@ -92,7 +92,11 @@ def get_status():
 
 if __name__ == "__main__":
     # configurate app running's parameters
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=5005)
+
+
+
+
 
 # some notes for hosting:
 # ssh-keygen -t rsa - generate ssh key
